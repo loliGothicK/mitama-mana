@@ -13,8 +13,18 @@ namespace mitama::mana::_sliding_detail {
         return type_list_of(at<I + Indices>(list)...);
     }
 
+    template <std::size_t I, std::size_t... Indices, auto... Values>
+    auto make_inner_sliding(value_list<Values...> list, value_list<Indices...>) {
+        return value_list_of(at<I + Indices>(list)...);
+    }
+
     template <std::size_t... Inner, std::size_t... Outer, class... Types>
     auto make_sliding(type_list<Types...> list, value_list<Inner...> indices, value_list<Outer...>) {
+        return type_list_of(type_c<decltype(make_inner_sliding<Outer>(list, indices))>...);
+    }
+
+    template <std::size_t... Inner, std::size_t... Outer, auto... Values>
+    auto make_sliding(value_list<Values...> list, value_list<Inner...> indices, value_list<Outer...>) {
         return type_list_of(type_c<decltype(make_inner_sliding<Outer>(list, indices))>...);
     }
 }
@@ -25,6 +35,12 @@ namespace mitama::mana {
         constexpr auto operator()(type_list<Types...> list) const {
             static_assert(sizeof...(Types) >= N);
             return _sliding_detail::make_sliding(list, iota<0, N>, iota<0, sizeof...(Types) - N + 1>);
+        }
+
+        template <auto... Values>
+        constexpr auto operator()(value_list<Values...> list) const {
+            static_assert(sizeof...(Values) >= N);
+            return _sliding_detail::make_sliding(list, iota<0, N>, iota<0, sizeof...(Values) - N + 1>);
         }
     };
 
