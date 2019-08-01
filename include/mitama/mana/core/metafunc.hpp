@@ -17,7 +17,7 @@ namespace mitama::mana::_detail {
     };
 }
 
-namespace mitama::mana {
+namespace mitama::mana::core {
     template < class Func >
     struct metafunc_impl {
         template <class T>

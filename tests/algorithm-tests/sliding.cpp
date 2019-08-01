@@ -1,7 +1,6 @@
 #include <catch2/catch.hpp>
 #include <mitama/mana/data/type_list.hpp>
 #include <mitama/mana/algorithm/sliding.hpp>
-#include <mitama/mana/functional/metafunc.hpp>
 #include <type_traits>
 #include <iostream>
 #include <boost/type_index.hpp>

@@ -2,11 +2,9 @@
 #define MITAMA_MANA_ALGORITHM_CHUNK_HPP
 #include <mitama/mana/data/type_list.hpp>
 #include <mitama/mana/data/value_list.hpp>
-#include <mitama/mana/algorithm/transform.hpp>
 #include <mitama/mana/utility/at.hpp>
 #include <mitama/mana/utility/iota.hpp>
 #include <mitama/mana/meta/math/multiply.hpp>
-#include <mitama/mana/functional/metafunc.hpp>
 #include <utility>
 
 namespace mitama::mana::_sliding_detail {   
