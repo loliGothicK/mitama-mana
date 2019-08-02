@@ -20,3 +20,11 @@ TEST_CASE("chunkify tuple", "[functional][chunkify]") {
     REQUIRE(std::get<1>(chunk) == std::tuple{4,5,6});
     REQUIRE(std::get<2>(chunk) == std::tuple{7,8,9});
 }
+
+TEST_CASE("chunkify map", "[functional][chunkify]") {
+    auto chunk = mana::chunkify<3>.view(1,2,3,4,5,6,7,8,9);
+    std::cout << boost::typeindex::type_id_with_cvr<decltype(mana::get<0>(chunk))>().pretty_name() << std::endl;
+    REQUIRE(mana::get<0>(chunk) == std::tuple{1,2,3});
+    REQUIRE(mana::get<1>(chunk) == std::tuple{4,5,6});
+    REQUIRE(mana::get<2>(chunk) == std::tuple{7,8,9});
+}

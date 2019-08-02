@@ -2,7 +2,7 @@
 #define MITAMA_MANA_ALGORITHM_CHUNK_HPP
 #include <mitama/mana/data/type_list.hpp>
 #include <mitama/mana/data/value_list.hpp>
-#include <mitama/mana/algorithm/transform.hpp>
+#include <mitama/mana/algorithm/klisli.hpp>
 #include <mitama/mana/utility/at.hpp>
 #include <mitama/mana/utility/iota.hpp>
 #include <mitama/mana/meta/math/multiply.hpp>
@@ -37,13 +37,13 @@ namespace mitama::mana {
         constexpr auto operator()(type_list<Types...> list) const {
             static_assert(sizeof...(Types) >= N);
             return _chunk_detail::make_chunk(list, iota<0, N>,
-                transform(iota<0, sizeof...(Types)/N>, [](int i){ return i*N; }));
+                klisli(iota<0, sizeof...(Types)/N>, [](int i){ return i*N; }));
         }
         template <auto... Values>
         constexpr auto operator()(value_list<Values...> list) const {
             static_assert(sizeof...(Values) >= N);
             return _chunk_detail::make_chunk(list, iota<0, N>,
-                transform(iota<0, sizeof...(Values)/N>, [](int i){ return i*N; }));
+                klisli(iota<0, sizeof...(Values)/N>, [](int i){ return i*N; }));
         }
     };
 

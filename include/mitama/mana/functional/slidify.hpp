@@ -22,7 +22,7 @@ struct slidify_fn {
 
     template <class TupleLike, std::enable_if_t<mana::is_tuple_like_v<std::decay_t<TupleLike>>, bool> = false>
     auto operator()(TupleLike&& t) const {
-        return mana::apply([t](auto... slide) mutable {
+        return mana::apply([&t](auto... slide) mutable {
             return std::tuple{mana::apply([&t](auto... indices) mutable {
                 return std::tuple(std::get<mana::peel(indices)>(t)...);
             }, mana::peel(slide))... };

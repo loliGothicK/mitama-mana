@@ -1,11 +1,11 @@
-#ifndef MITAMA_MANA_ALGORITHM_TRANSFORM_HPP
-#define MITAMA_MANA_ALGORITHM_TRANSFORM_HPP
+#ifndef MITAMA_MANA_ALGORITHM_KLISLI_HPP
+#define MITAMA_MANA_ALGORITHM_KLISLI_HPP
 #include <mitama/mana/data/type_list.hpp>
 #include <mitama/mana/data/value_list.hpp>
 #include <mitama/mana/core/metafunc.hpp>
 
 namespace mitama::mana {
-    struct transform_fn {
+    struct klisli_fn {
         template <class F, class... Types>
         constexpr auto operator()(type_list<Types...>, core::metafunc_impl<F> map) const {
             return type_list_of(map(type_c<Types>)...);
@@ -20,7 +20,7 @@ namespace mitama::mana {
         }
     };
 
-    inline constexpr transform_fn transform{};
+    inline constexpr klisli_fn klisli{};
 }
 
 #endif
