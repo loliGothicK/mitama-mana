@@ -27,7 +27,7 @@ public:
     static constexpr auto get(Tuple&& t) {
         return mana::apply([&t](auto... indices){
             return std::tuple(std::get<mana::peel(indices)>(t)...);
-        }, mana::peel(at<I>(mana::chunk<N>(mana::iota<0, std::tuple_size_v<std::decay_t<Tuple>>>))));
+        }, mana::iota<I*N, I*N + N>);
     }
 };
 }
@@ -56,13 +56,13 @@ struct chunkify_fn {
 
     template <class... Args>
     auto view(Args&&... args) const {
-        return _view<mitama::mana::map_fn::chunkify_map_fn<N>, std::tuple<Args...>>{std::forward<Args>(args)...};
+        return _view<fn::static_, mitama::mana::map_fn::chunkify_map_fn<N>, std::tuple<Args...>>{std::forward<Args>(args)...};
     }
 
     template <class TupleLike, std::enable_if_t<mana::is_tuple_like_v<std::decay_t<TupleLike>>, bool> = false>
     auto view(TupleLike&& t) const {
         return std::apply([](auto&&... args){
-            return _view<mitama::mana::map_fn::chunkify_map_fn<N>, std::tuple<decltype(args)...>>{std::forward<decltype(args)>(args)...};
+            return _view<fn::static_, mitama::mana::map_fn::chunkify_map_fn<N>, std::tuple<decltype(args)...>>{std::forward<decltype(args)>(args)...};
         }, std::forward<TupleLike>(t));
     }
 };
