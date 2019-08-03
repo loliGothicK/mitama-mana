@@ -15,8 +15,8 @@ private:
     template <class Tuple, std::size_t... Indices>
     static constexpr auto element_type(Tuple&&, value_list<Indices...>) -> std::tuple<std::tuple_element_t<Indices, Tuple>...>;
 public:
-    template <std::size_t M>
-    static constexpr std::size_t value = M - N + 1;
+    template <class Tuple>
+    static constexpr std::size_t value = std::tuple_size_v<std::decay_t<Tuple>> - N + 1;
 
     template <std::size_t I, class Tuple>
     using type = decltype(element_type(std::declval<Tuple>(), mana::iota<I, I + N>));

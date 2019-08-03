@@ -9,8 +9,8 @@ template <class F>
 struct flat_map_fn {
     F map_;
 
-    template <std::size_t N>
-    static constexpr std::size_t value = N;
+    template <class Tuple>
+    static constexpr std::size_t value = mana::klisli();
 
     template <std::size_t I, class Tuple>
     using type = std::invoke_result_t<F, std::tuple_element_t<I, Tuple>>;

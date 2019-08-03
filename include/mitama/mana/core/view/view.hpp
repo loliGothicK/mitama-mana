@@ -20,7 +20,7 @@ namespace mitama::mana {
     class _view<fn::static_, MapFn, Xs> {
         Xs xs_;
     public:
-        static constexpr std::size_t value = MapFn::template value<std::tuple_size_v<std::decay_t<Xs>>>;
+        static constexpr std::size_t value = MapFn::template value<Xs>;
         template <std::size_t I>
         using type = typename MapFn::template type<I, Xs>;
   
@@ -49,7 +49,7 @@ namespace mitama::mana {
         Xs xs_;
         MapFn map_;
     public:
-        static constexpr std::size_t value = MapFn::template value<std::tuple_size_v<std::decay_t<Xs>>>;
+        static constexpr std::size_t value = MapFn::template value<Xs>;
         template <std::size_t I>
         using type = typename MapFn::template type<I, Xs>;
   
