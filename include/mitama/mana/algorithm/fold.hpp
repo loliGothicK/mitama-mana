@@ -1,5 +1,5 @@
-#ifndef MITAMA_MANA_ALGORITHM_CHUNK_HPP
-#define MITAMA_MANA_ALGORITHM_CHUNK_HPP
+#ifndef MITAMA_MANA_ALGORITHM_FOLD_HPP
+#define MITAMA_MANA_ALGORITHM_FOLD_HPP
 #include <mitama/mana/data/type_list.hpp>
 #include <mitama/mana/data/value_list.hpp>
 #include <mitama/mana/core/metafunc.hpp>
@@ -12,15 +12,15 @@ namespace mitama::mana {
         }
         template <class F, auto... Values>
         constexpr auto operator()(value_list<Values...>, core::metafunc_impl<F> map) const {
-            return value_list_of(map(value_c<Values>)...);
+            return value_c<map(Values...)>;
         }
         template <class F, auto... Values>
         constexpr auto operator()(value_list<Values...>, F map) const {
-            return value_list_of(value_c<map(Values)>...);
+            return value_c<map(Values...)>;
         }
     };
 
-    inline constexpr klisli_fn klisli{};
+    inline constexpr fold_fn fold{};
 }
 
 #endif

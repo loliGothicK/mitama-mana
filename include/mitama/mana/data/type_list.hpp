@@ -13,6 +13,8 @@ namespace mitama::mana {
     template <class... Xs>
     inline constexpr auto type_list_of(type<Xs>...) { return type_list_c<Xs...>; };
 
+    template <class... Xs>
+    inline constexpr auto list_of(type<Xs>...) { return type_list_c<Xs...>; };
 }
 
 #endif

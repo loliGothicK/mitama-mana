@@ -8,15 +8,15 @@ namespace mitama::mana {
     struct klisli_fn {
         template <class F, class... Types>
         constexpr auto operator()(type_list<Types...>, core::metafunc_impl<F> map) const {
-            return type_list_of(map(type_c<Types>)...);
+            return list_of(map(type_c<Types>)...);
         }
         template <class F, auto... Values>
         constexpr auto operator()(value_list<Values...>, core::metafunc_impl<F> map) const {
-            return value_list_of(map(value_c<Values>)...);
+            return list_of(map(value_c<Values>)...);
         }
         template <class F, auto... Values>
         constexpr auto operator()(value_list<Values...>, F map) const {
-            return value_list_of(value_c<map(Values)>...);
+            return list_of(value_c<map(Values)>...);
         }
     };
 

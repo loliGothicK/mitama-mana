@@ -12,6 +12,9 @@ namespace mitama::mana {
 
     template <auto... Xs>
     inline constexpr auto value_list_of(value<Xs>...) { return value_list_c<Xs...>; };
+
+    template <auto... Xs>
+    inline constexpr auto list_of(value<Xs>...) { return value_list_c<Xs...>; };
 }
 
 #endif

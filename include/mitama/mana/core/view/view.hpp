@@ -5,6 +5,7 @@
 #include <utility>
 #include <mitama/mana/core/view/map.hpp>
 #include <mitama/mana/core/view/apply_map.hpp>
+#include <mitama/mana/core/view/flatten.hpp>
 
 namespace mitama::mana {
 
@@ -42,6 +43,13 @@ namespace mitama::mana {
         template <template<class T, class = std::allocator<T>> class Container>
         constexpr auto collect()
         { return apply_view([](auto&&... args){ return Container{ std::forward<decltype(args)>(args)... }; }, *this); }
+
+        constexpr auto flatten()
+        { return _view<fn::static_, map_fn::flatten_fn, _view>(std::move(*this)); }
+
+        template <class F>
+        constexpr auto flat_map(F&& f)
+        { return _view<fn::dyn_, map_fn::transform_fn<F>, _view>(std::forward<F>(f), std::move(*this)).flatten(); }
     };
 
     template <class MapFn, class Xs>
@@ -74,6 +82,13 @@ namespace mitama::mana {
         template <template<class T, class = std::allocator<T>> class Container>
         constexpr auto collect()
         { return apply_view([](auto&&... args){ return Container{ std::forward<decltype(args)>(args)... }; }, *this); }
+
+        constexpr auto flatten()
+        { return _view<fn::static_, map_fn::flatten_fn, _view>(std::move(*this)); }
+        template <class F>
+
+        constexpr auto flat_map(F&& f)
+        { return _view<fn::dyn_, map_fn::transform_fn<F>, _view>(std::forward<F>(f), std::move(*this)).flatten(); }
     };
 
     template <std::size_t I, fn _fn, class _, class Xs>

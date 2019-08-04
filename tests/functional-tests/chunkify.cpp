@@ -46,3 +46,8 @@ TEST_CASE("chunkify view-apply_map", "[functional][chunkify]") {
     REQUIRE(mana::get<1>(chunk_sum) == 15);
     REQUIRE(mana::get<2>(chunk_sum) == 24);
 }
+
+TEST_CASE("chunkify-flatten id", "[functional][chunkify]") {
+    auto [_1, _2, _3, _4, _5, _6] = mana::chunkify<3>.view(1,2,3,4,5,6).flatten();
+    REQUIRE(std::tie(_1, _2, _3, _4, _5, _6) == std::tuple{1,2,3,4,5,6});
+}

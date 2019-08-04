@@ -53,8 +53,11 @@ TEST_CASE("slidify view-apply_map", "[functional][slidify]") {
     REQUIRE(mana::get<3>(sliding_sum) == 15);
 }
 
-TEST_CASE("slidify view-apply_map-collect", "[functional][slidify]") {
-    auto sum = [](auto... v){ return (v + ...); };
-
-    REQUIRE(mana::slidify<3>.view(1,2,3,4,5,6).apply_map(sum).collect<std::vector>() == std::vector{6,9,12,15});
+TEST_CASE("slidify-flatten", "[functional][chunkify]") {
+    mana::apply_view(
+        [](auto... values) {
+            REQUIRE(std::tuple{values...} == std::tuple{1,2,3,2,3,4,3,4,5,4,5,6});
+        },
+        mana::slidify<3>.view(1,2,3,4,5,6).flatten()
+    );
 }

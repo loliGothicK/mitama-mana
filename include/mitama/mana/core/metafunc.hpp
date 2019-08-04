@@ -4,6 +4,7 @@
 #include <mitama/mana/data/constant_variable.hpp>
 #include <mitama/mana/type_traits/has_type.hpp>
 #include <mitama/mana/type_traits/has_value.hpp>
+#include <mitama/mana/functional/overload_linearly.hpp>
 
 namespace mitama::mana::_detail {
     template <class, class=void>

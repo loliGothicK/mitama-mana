@@ -11,10 +11,8 @@
 namespace mitama::mana::map_fn {
 template <std::size_t N>
 struct slidify_map_fn {
-private:
     template <class Tuple, std::size_t... Indices>
     static constexpr auto element_type(Tuple&&, value_list<Indices...>) -> std::tuple<std::tuple_element_t<Indices, Tuple>...>;
-public:
     template <class Tuple>
     static constexpr std::size_t value = std::tuple_size_v<std::decay_t<Tuple>> - N + 1;
 
