@@ -7,6 +7,7 @@
 #include <mitama/mana/meta/tuple_flatten.hpp>
 #include <mitama/mana/functional/fix.hpp>
 #include <mitama/mana/functional/overload.hpp>
+#include <mitama/mana/utility/apply.hpp>
 #include <type_traits>
 #include <tuple>
 
